@@ -13,9 +13,11 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   late List<Question> _questions;
   int _currentIndex = 0;
   int _totalScore = 0;
+  int? _selectedAnswerIndex;
   int get currentIndex => _currentIndex + 1;
   int get totalQuestions => _questions.length;
   int get totalScore => _totalScore;
+  int? get selectedAnswerIndex => _selectedAnswerIndex;
 
   QuizBloc() : super(QuizInitial()) {
     _questions = [
@@ -238,8 +240,8 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
         ],
       ),
     ];
-
     on<StartQuizEvent>(_onStartQuiz);
+    on<SelectAnswerEvent>(_onSelectAnswer);
     on<SubmitAnswerEvent>(_onSubmitAnswer);
     on<FinishQuizEvent>(_onFinishQuiz);
     on<BackToInitialStateEvent>(_backToInitialStateEvent);
@@ -250,14 +252,21 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     emit(QuestionState(_questions.first));
   }
 
+  void _onSelectAnswer(SelectAnswerEvent event, Emitter<QuizState> emit){
+    _selectedAnswerIndex = event.answerIndex;
+    emit(QuestionState(_questions[_currentIndex]));
+}
+
   void _onSubmitAnswer(SubmitAnswerEvent event, Emitter<QuizState> emit) {
     if (state is QuestionState) {
       final QuestionState currentState = state as QuestionState;
       final Question currentQuestion = currentState.question;
-      _totalScore += event.value;
+      _totalScore += _selectedAnswerIndex == null?0:_selectedAnswerIndex!;
+      print(_totalScore);
       _currentIndex = _questions.indexOf(currentQuestion);
       if (_currentIndex < _questions.length - 1) {
         _currentIndex++;
+        _selectedAnswerIndex = null;
         emit(QuestionState(_questions[_currentIndex]));
       } else {
         emit(QuizFinishedState(totalScore: _totalScore));
@@ -267,9 +276,12 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
 
   void _onFinishQuiz(FinishQuizEvent event, Emitter<QuizState> emit) {
     emit(QuizFinishedState(totalScore: _totalScore));
+    _totalScore = 0;
+    _currentIndex = 0;
   }
 
   void _backToInitialStateEvent(BackToInitialStateEvent event, Emitter<QuizState> emit){
+    _questions.forEach((element) {element.answers.forEach((element) {element.isSelected = false;});});
     emit(QuizInitial());
   }
 }

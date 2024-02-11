@@ -10,13 +10,21 @@ class StartQuizEvent extends QuizEvent {
   List<Object?> get props => [];
 }
 
-class SubmitAnswerEvent extends QuizEvent {
-  final int value;
+class SelectAnswerEvent extends QuizEvent {
+  final int answerIndex;
 
-  SubmitAnswerEvent(this.value);
+  SelectAnswerEvent(this.answerIndex);
 
   @override
-  List<Object?> get props => [value];
+  List<Object?> get props => [answerIndex];
+}
+
+class SubmitAnswerEvent extends QuizEvent {
+
+  SubmitAnswerEvent();
+
+  @override
+  List<Object?> get props => [];
 }
 
 class FinishQuizEvent extends QuizEvent {

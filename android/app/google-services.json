@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "251319478039",
+    "project_id": "stoptheblues-365fd",
+    "storage_bucket": "stoptheblues-365fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251319478039:android:efe676ec45cd9a69f9b952",
+        "android_client_info": {
+          "package_name": "com.example.stoptheblues"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251319478039-cut1roqejpd9djhiaq4edp8g13k3k2ng.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe984KQLOccwEHXnOwbOveCjpqaLl39Uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251319478039-cut1roqejpd9djhiaq4edp8g13k3k2ng.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "251319478039-6i3faqgjev278ijk0sdrl211g4q0nt79.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.stoptheblues.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
